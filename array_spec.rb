@@ -21,6 +21,7 @@ describe Array do
 			[].my_uniq.should == []
 		end
 
+
 	end
 
 	describe "#two_sum" do

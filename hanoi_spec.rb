@@ -2,7 +2,8 @@ require 'rspec'
 require_relative 'hanoi'
 
 describe Pile do
-
+	#REV I think subject(:pile) { Pile.new(6)} is preferred here because this will allow you to decouple your tests from 
+	#each other
 	pile = Pile.new(6)
 	empty_pile = Pile.new
 
@@ -53,7 +54,10 @@ end
 describe Hanoi do
 
 	game = Hanoi.new(8)
+#REV same comment on using subject here to make your object
 
+#REV you don't need to explicitly reference initialize here! since you just created your object above
+#you can just write 'it "constructs with an optional argument, etc..." do'
 	describe "#initialize" do
 		game.left.disks.should == (1..8).to_a.reverse
 		game.center.disks.should == []

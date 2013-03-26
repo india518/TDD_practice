@@ -16,6 +16,8 @@ class TreeNode
 		return self if value == target
 		return nil if children.empty?
 		found_node = nil
+		#REV the whole recurrsion part could be shortened to one line using the .inject method:
+		# children.inject(nil) {|last_child, this_child| last_child : dfs(this_child)}
 		children.each do |child|
 			found_node = child.dfs(target)
 			break if found_node
