@@ -94,17 +94,5 @@ describe Hanoi do
 		end
 	end
 
-	describe "get_move" do
-		it "gets a move from user" do
-
-			game
-			  .should_recieve(:move_disk)
-				.with(game.left, game.right)
-			game.get_move
-			# make sure to type in left, right
-		end
-
-	end
-
 end
 

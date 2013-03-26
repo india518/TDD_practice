@@ -3,6 +3,7 @@ class Hanoi
 	attr_accessor :left, :center, :right
 	attr_reader :num_of_disk
 
+
 	def initialize(num_of_disks)
 		@num_of_disk = num_of_disks
 		@left = Pile.new(num_of_disks)
@@ -11,9 +12,7 @@ class Hanoi
 	end
 
 	def render
-		p left
-		p center
-		p right
+		#not testing in rspec
 	end
 
 	def move_disk(start_pile, targ_pile)
@@ -27,7 +26,11 @@ class Hanoi
 	end
 
 	def won?
-		right.disks == (1..num_of_disk).to_a.reverse#
+		right.disks == (1..num_of_disk).to_a.reverse
+	end
+
+	def get_move
+    #not testing in rspec
 	end
 
 end
@@ -43,7 +46,7 @@ class Pile
 
 	def take
 		if @disks.empty?
-			raise RuntimeError.new "Can't take from empty pile"
+			raise "Can't take from empty pile"
 		else
 			@disks.pop
 		end
@@ -53,7 +56,7 @@ class Pile
 		if @disks.empty? || disk < @disks.last
 		  @disks << disk
 		else
-		  raise RuntimeError.new "Can't place a heavier disk"
+		  raise "Can't place a heavier disk"
 		end
 	end
 
