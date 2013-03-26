@@ -24,6 +24,14 @@ class TreeNode
 	end
 
 	def bfs(target)
+		queue = [self]
+
+		until queue.empty?
+			node = queue.shift
+			return node if node.value == target
+			queue += node.children
+		end
+		nil
 	end
 
 

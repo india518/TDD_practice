@@ -32,6 +32,79 @@ describe TreeNode do
 	let(:gchild3b)  { TreeNode.new(104) }
 	let(:gchild3c)  { TreeNode.new(105) }
 
+  describe "dfs" do
+   	it "finds the root node" do
+			parent.add_child(child1a)
+			parent.add_child(child2a)
+
+			parent
+			  .should_receive(:value)
+				.ordered
+				.and_call_original
+			child1a.should_not_receive(:value)
+			child2a.should_not_receive(:value)
+			parent.dfs(1).should == parent
+		end
+
+    it "finds the first child" do
+			parent.add_child(child1a)
+			parent.add_child(child2a)
+			parent.add_child(child3a)
+			child1a.add_child(gchild1b)
+			child1a.add_child(gchild1c)
+			child2a.add_child(gchild2b)
+			child3a.add_child(gchild3b)
+			child3a.add_child(gchild3c)
+
+			parent
+			  .should_receive(:value)
+				.ordered
+				.and_call_original
+		  child1a
+			  .should_receive(:value)
+				.ordered
+				.and_call_original
+			child2a.should_not_receive(:value)
+			gchild1b.should_not_receive(:value)
+			gchild1c.should_not_receive(:value)
+			parent.dfs(20).should == child1a
+		end
+
+		it "finds gchild 1c in the right order" do
+			parent.add_child(child1a)
+			parent.add_child(child2a)
+			parent.add_child(child3a)
+			child1a.add_child(gchild1b)
+			child1a.add_child(gchild1c)
+			child2a.add_child(gchild2b)
+			child3a.add_child(gchild3b)
+			child3a.add_child(gchild3c)
+
+			parent
+			  .should_receive(:value)
+				.ordered
+				.and_call_original
+		  child1a
+			  .should_receive(:value)
+				.ordered
+				.and_call_original
+			gchild1b
+			  .should_receive(:value)
+				.ordered
+				.and_call_original
+			gchild1c
+			  .should_receive(:value)
+				.ordered
+				.and_call_original
+			child2a.should_not_receive(:value)
+			child3a.should_not_receive(:value)
+			gchild2b.should_not_receive(:value)
+			gchild3b.should_not_receive(:value)
+			gchild3c.should_not_receive(:value)
+			parent.dfs(102).should == gchild1c
+	  end
+	end
+
 	describe "#bfs" do
 
 		it "finds the root node" do
@@ -51,7 +124,7 @@ describe TreeNode do
 			child1a.should_not_receive(:value)
 			child2a.should_not_receive(:value)
 			child3a.should_not_receive(:value)
-			parent.dfs(1).should == parent
+			parent.bfs(1).should == parent
 		end
 
     it "finds the first child" do
@@ -77,7 +150,7 @@ describe TreeNode do
 			gchild1b.should_not_receive(:value)
 			gchild1c.should_not_receive(:value)
 
-			parent.dfs(20).should == child1a
+			parent.bfs(20).should == child1a
 		end
 
     it "finds an element in the third row (third grandchild)" do
@@ -118,10 +191,10 @@ describe TreeNode do
 			  .should_receive(:value)
 				.ordered
 				.and_call_original
-			gchild3a.should_not_receive(:value)
 			gchild3b.should_not_receive(:value)
+			gchild3c.should_not_receive(:value)
 
-			parent.dfs(103).should == gchild2b
+			parent.bfs(103).should == gchild2b
 		end
 
     it "doesn't find something not in the tree" do
@@ -162,19 +235,18 @@ describe TreeNode do
 			  .should_receive(:value)
 				.ordered
 				.and_call_original
-			gchild3a
+			gchild3b
         .should_receive(:value)
 				.ordered
 				.and_call_original
-			gchild3b
+			gchild3c
       .should_receive(:value)
 			.ordered
 			.and_call_original
 
-			parent.dfs(404).should == nil
+			parent.bfs(404).should == nil
 		end
 
 	end
-
 
 end
